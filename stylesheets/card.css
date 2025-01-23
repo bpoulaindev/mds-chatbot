@@ -1,0 +1,71 @@
+.empty-state-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80%, 500px);
+  visibility: hidden;
+  pointer-events: none;
+  max-width: calc(100% - var(--spacing-2xl));
+  margin: auto;
+}
+
+.empty-state-card.visible {
+  visibility: visible;
+  pointer-events: all;
+}
+
+.card-border-top,
+.card-border-bottom {
+  height: 1px;
+  background-color: var(--color-primary);
+  position: relative;
+}
+
+.card-border-top::before,
+.card-border-top::after,
+.card-border-bottom::before,
+.card-border-bottom::after {
+  content: "";
+  position: absolute;
+  width: var(--diamond-size);
+  height: var(--diamond-size);
+  background-color: var(--color-background);
+  border: var(--border-primary);
+  transform: rotate(45deg);
+}
+
+.card-border-top::before {
+  left: calc(var(--diamond-size) * -0.5);
+  bottom: calc(var(--diamond-size) * -0.5);
+}
+
+.card-border-top::after {
+  right: calc(var(--diamond-size) * -0.5);
+  bottom: calc(var(--diamond-size) * -0.5);
+}
+
+.card-border-bottom::before {
+  left: calc(var(--diamond-size) * -0.5);
+  top: calc(var(--diamond-size) * -0.5);
+}
+
+.card-border-bottom::after {
+  right: calc(var(--diamond-size) * -0.5);
+  top: calc(var(--diamond-size) * -0.5);
+}
+
+.card-content {
+  padding: var(--spacing-3xl); /* 48px instead of 2rem */
+  text-align: center;
+}
+
+.card-content h2 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--color-primary);
+}
+
+.card-content p {
+  margin: 0;
+  color: var(--color-gray-500);
+}

@@ -1,0 +1,93 @@
+.burger-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; /* Keeping fixed size for precise button dimensions */
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-primary);
+}
+
+.burger-button:hover {
+  color: var(--color-primary-darker);
+}
+
+.burger-button svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background: var(--color-background);
+  border-right: var(--border-primary);
+  transform: translateX(-100%);
+  transition: var(--transition-default);
+  z-index: var(--z-sidebar);
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-content {
+  padding: var(--spacing-lg);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.sidebar-header h2 {
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.close-sidebar {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: var(--spacing-xl);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  line-height: 1;
+}
+
+.conversations-list {
+  margin-top: var(--spacing-lg);
+}
+
+.conversation-item {
+  padding: var(--spacing-sm);
+  border: var(--border-primary);
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.conversation-item:hover {
+  background-color: var(--color-primary-light);
+}
+
+.conversation-preview {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.conversation-date {
+  font-size: 14px;
+  color: var(--color-gray-500);
+}

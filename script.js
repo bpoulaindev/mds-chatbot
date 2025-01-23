@@ -1,7 +1,11 @@
 const sendButton = document.getElementById("send-message-btn");
 const deleteButton = document.getElementById("deleteBtn");
 const messagesContainer = document.getElementById("messages-container");
+const messagesSubContainer = document.querySelector(".messages-sub-container");
 const userInput = document.getElementById("user-input");
+const emptyStateCard = document.querySelector(".empty-state-card");
+
+const { animate, scroll, motion, stagger } = Motion;
 
 const localStorageHandler = (key, value) => {
   return value ? localStorage.setItem(key, value) : localStorage.getItem(key);
@@ -14,18 +18,55 @@ const displayMessage = (message, isBot = false) => {
   paragraph.className = "message";
   paragraph.innerHTML = message;
   container.appendChild(paragraph);
-  messagesContainer.appendChild(container);
+  messagesSubContainer.appendChild(container);
 };
 
 // syntax : { role: user | model, parts: [{text: string}] }
 const messagesInstance = {
   messages: [],
+  updateEmptyState: () => {
+    if (messagesInstance.messages.length === 0) {
+      emptyStateCard.classList.add("visible");
+      animate(
+        emptyStateCard,
+        {
+          opacity: [0, 1],
+          transform: [
+            "translate(-50%, calc(-50% + 20px)) scale(0.9)",
+            "translate(-50%, -50%) scale(1)",
+          ],
+        },
+        {
+          duration: 0.4,
+          easing: [0.22, 1.28, 0.38, 1],
+        },
+      );
+    } else {
+      animate(
+        emptyStateCard,
+        {
+          opacity: [1, 0],
+          transform: [
+            "translate(-50%, -50%) scale(1)",
+            "translate(-50%, calc(-50% - 20px)) scale(0.9)",
+          ],
+        },
+        {
+          duration: 0.3,
+          easing: "ease-in",
+        },
+      ).finished.then(() => {
+        emptyStateCard.classList.remove("visible");
+      });
+    }
+  },
   // messages: [{ role: "user", parts: [{ text: "Hello, how are you?" }] }],
   initMessages: (messages) => {
     messagesInstance.messages = messages;
     messages.map((message) =>
       displayMessage(message.parts[0].text, message.role === "model"),
     );
+    messagesInstance.updateEmptyState();
   },
   addMessage: (message, isBot) => {
     const formattedMessage = {
@@ -38,6 +79,7 @@ const messagesInstance = {
       "savedMessages",
       JSON.stringify(messagesInstance.messages),
     );
+    messagesInstance.updateEmptyState();
   },
   getMessages: () => {
     return messagesInstance.messages;
@@ -45,7 +87,8 @@ const messagesInstance = {
   resetMessages: () => {
     messagesInstance.messages = [];
     localStorageHandler("savedMessages", JSON.stringify([]));
-    messagesContainer.innerHTML = "";
+    messagesSubContainer.innerHTML = ""; // Only clear the sub-container
+    messagesInstance.updateEmptyState();
   },
 };
 
@@ -56,17 +99,21 @@ if (savedMessages) {
   messagesInstance.initMessages(parsedMessages);
 }
 
-const GEMINI_API_KEY = "";
+const GEMINI_API_KEY = "AIzaSyA_6kb_udqs0c3ADNbHcVnaQj4y6STy0G8";
 
 function callGeminiAPI() {
   sendButton.classList.add("loading");
+  const allMessages = messagesInstance.getMessages();
+  if (allMessages.length === 0) {
+    return;
+  }
   fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: messagesInstance.getMessages(),
+        contents: allMessages,
       }),
     },
   )
@@ -84,6 +131,7 @@ const sendMessageFromUser = () => {
   messagesInstance.addMessage(messageValue, false);
   callGeminiAPI();
   userInput.value = "";
+  sendButton.disabled = true;
 };
 
 sendButton.addEventListener("click", () => {
@@ -91,6 +139,10 @@ sendButton.addEventListener("click", () => {
 });
 
 userInput.addEventListener("keyup", (event) => {
+  userInput.value.length > 0
+    ? (sendButton.disabled = false)
+    : (sendButton.disabled = true);
+
   if (event.key === "Enter") {
     sendMessageFromUser();
   }

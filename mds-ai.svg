@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="mdsLogo" width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0551cf;stop-opacity:0.2"/>
+      <stop offset="50%" style="stop-color:#0551cf;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0551cf;stop-opacity:0.2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Courbes décoratives -->
+  <path class="curve-top"
+        d="M20 10 C50 10, 60 30, 100 30 S150 10, 180 10"
+        fill="none"
+        stroke="#0551cf"
+        stroke-width="0.5"
+        opacity="0.4"/>
+
+  <path class="curve-bottom"
+        d="M20 70 C50 70, 60 50, 100 50 S150 70, 180 70"
+        fill="none"
+        stroke="#0551cf"
+        stroke-width="0.5"
+        opacity="0.4"/>
+
+  <!-- Circuits décoratifs plus élaborés -->
+  <path class="circuit-left"
+        d="M10 40 C20 40, 30 20, 50 20 Q70 20, 70 40"
+        fill="none"
+        stroke="#0551cf"
+        stroke-width="0.5"
+        opacity="0.6"/>
+
+  <path class="circuit-right"
+        d="M190 40 C180 40, 170 20, 150 20 Q130 20, 130 40"
+        fill="none"
+        stroke="#0551cf"
+        stroke-width="0.5"
+        opacity="0.6"/>
+
+  <!-- Points de connexion -->
+  <circle class="dot-left" cx="50" cy="20" r="1" fill="#0551cf"/>
+  <circle class="dot-middle-left" cx="70" cy="40" r="1" fill="#0551cf"/>
+  <circle class="dot-middle-right" cx="130" cy="40" r="1" fill="#0551cf"/>
+  <circle class="dot-right" cx="150" cy="20" r="1" fill="#0551cf"/>
+
+  <!-- Texte principal -->
+  <g class="text-group" transform="translate(60, 45)">
+    <text class="main-text"
+          font-family="monospace"
+          font-size="24"
+          fill="#0551cf">
+      <tspan class="mds-text">MDS</tspan>
+      <tspan class="ai-text" dx="10" opacity="0.8">AI</tspan>
+    </text>
+
+    <!-- Ligne ondulée sous le texte -->
+    <path class="underline"
+          d="M0 5 C20 5, 25 2, 40 2 S60 5, 80 5"
+          stroke="url(#techGradient)"
+          stroke-width="0.5"/>
+  </g>
+
+  <!-- Lignes de connexion supplémentaires -->
+  <path class="connection-lines"
+        d="M50 20 Q60 30, 70 40 M150 20 Q140 30, 130 40"
+        stroke="#0551cf"
+        stroke-width="0.3"
+        opacity="0.4"/>
+</svg>
