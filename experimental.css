@@ -1,0 +1,42 @@
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none; /* This allows clicking through the overlay */
+  z-index: 10; /* Adjust based on your needs */
+  background-image: url("noise-big.png");
+  background-size: 180px;
+  nackground-repeat: repeat;
+  opacity: 0.1;
+}
+
+.line-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  min-height: 50px;
+}
+
+.line-container.top {
+  border-bottom: 1px solid #0551cf;
+}
+
+.line-container.bottom {
+  border-top: 1px solid #0551cf;
+}
+
+.small-block {
+  width: 30px;
+  min-width: 30px;
+  height: 100%;
+}
+
+.large-block {
+  height: 100%;
+  width: 100%;
+  border-left: 1px solid #0551cf;
+  border-right: 1px solid #0551cf;
+}

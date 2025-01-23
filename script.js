@@ -1,22 +1,101 @@
-const sendButton = document.getElementById('send-message-btn');
-const messagesContainer = document.getElementById('messages-container')
-const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById("send-message-btn");
+const deleteButton = document.getElementById("deleteBtn");
+const messagesContainer = document.getElementById("messages-container");
+const userInput = document.getElementById("user-input");
+
+const localStorageHandler = (key, value) => {
+  return value ? localStorage.setItem(key, value) : localStorage.getItem(key);
+};
 
 const displayMessage = (message, isBot = false) => {
-const container = document.createElement("div");
+  const container = document.createElement("div");
   container.className = `message-row ${isBot ? "bot-side" : "user-side"}`;
-
   const paragraph = document.createElement("p");
   paragraph.className = "message";
   paragraph.innerHTML = message;
-
   container.appendChild(paragraph);
   messagesContainer.appendChild(container);
+};
+
+// syntax : { role: user | model, parts: [{text: string}] }
+const messagesInstance = {
+  messages: [],
+  // messages: [{ role: "user", parts: [{ text: "Hello, how are you?" }] }],
+  initMessages: (messages) => {
+    messagesInstance.messages = messages;
+    messages.map((message) =>
+      displayMessage(message.parts[0].text, message.role === "model"),
+    );
+  },
+  addMessage: (message, isBot) => {
+    const formattedMessage = {
+      role: isBot ? "model" : "user",
+      parts: [{ text: message }],
+    };
+    messagesInstance.messages.push(formattedMessage);
+    displayMessage(message, isBot);
+    localStorageHandler(
+      "savedMessages",
+      JSON.stringify(messagesInstance.messages),
+    );
+  },
+  getMessages: () => {
+    return messagesInstance.messages;
+  },
+  resetMessages: () => {
+    messagesInstance.messages = [];
+    localStorageHandler("savedMessages", JSON.stringify([]));
+    messagesContainer.innerHTML = "";
+  },
+};
+
+// initialize data on load
+const savedMessages = localStorageHandler("savedMessages");
+if (savedMessages) {
+  const parsedMessages = JSON.parse(savedMessages);
+  messagesInstance.initMessages(parsedMessages);
 }
 
-sendButton.addEventListener('click', () => {
-    const messageValue = userInput.value;
-    displayMessage(messageValue, false);
-    userInput.value = '';
+const GEMINI_API_KEY = "";
+
+function callGeminiAPI() {
+  sendButton.classList.add("loading");
+  fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: messagesInstance.getMessages(),
+      }),
+    },
+  )
+    .then((res) => res.json())
+    .then((result) => {
+      const textContent = result.candidates[0]?.content?.parts?.[0]?.text;
+      messagesInstance.addMessage(textContent, true);
+      sendButton.classList.remove("loading");
+    })
+    .catch((error) => console.error(error));
+}
+
+const sendMessageFromUser = () => {
+  const messageValue = userInput.value;
+  messagesInstance.addMessage(messageValue, false);
+  callGeminiAPI();
+  userInput.value = "";
+};
+
+sendButton.addEventListener("click", () => {
+  sendMessageFromUser();
 });
 
+userInput.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    sendMessageFromUser();
+  }
+});
+
+deleteButton.addEventListener("click", () => {
+  messagesInstance.resetMessages();
+});
