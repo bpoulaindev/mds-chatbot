@@ -2,17 +2,38 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% + 20px)) scale(0.9);
   width: min(80%, 500px);
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
   max-width: calc(100% - var(--spacing-2xl));
   margin: auto;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    transform 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    visibility 0s linear 0.4s; /* delay visibility change until fade out is complete */
 }
 
 .empty-state-card.visible {
+  opacity: 1;
   visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
   pointer-events: all;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    transform 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    visibility 0s linear; /* no delay when becoming visible */
+}
+
+/* Optional: add exit animation */
+.empty-state-card.hiding {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% - 20px)) scale(0.9);
+  transition:
+    opacity 0.3s ease-in,
+    transform 0.3s ease-in,
+    visibility 0s linear 0.3s;
 }
 
 .card-border-top,

@@ -38,6 +38,7 @@
   background-color: var(--color-background);
   border: var(--border-primary);
   transform: rotate(45deg);
+  z-index: var(--z-overlay);
 }
 
 /* For the top line-container */

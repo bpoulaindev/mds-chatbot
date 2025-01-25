@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MDS AI</title>
-    <script src="script.js" defer></script>
+    <!-- <script src="script.js" defer></script>
     <script src="script2.js" defer></script>
-    <script src="scripts/sidebar.js" defer></script>
+    <script src="scripts/sidebar.js" defer></script> -->
     <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
     <link rel="stylesheet" href="stylesheets/main.css" />
     <link rel="stylesheet" href="stylesheets/experimental.css" />
@@ -20,89 +20,82 @@
     />
   </head>
   <body>
-    <div class="sidebar">
-      <div class="sidebar-content">
-        <div class="sidebar-header">
-          <h2>Conversations</h2>
-          <button class="close-sidebar">×</button>
-        </div>
-        <div class="conversations-list">
-          <!-- Will be populated by JS -->
-        </div>
-      </div>
-    </div>
     <div class="noise-overlay"></div>
     <div class="line-container top">
       <div class="small-block"></div>
       <div class="large-block"></div>
       <div class="small-block"></div>
     </div>
-    <div id="container">
-      <div class="header-container grid-background-corners">
-        <div class="header-left">
-          <button class="burger-button">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 6C2 5.44772 2.44772 5 3 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H3C2.44772 7 2 6.55228 2 6Z"
-                fill="currentColor"
-              />
-              <path
-                d="M2 12.0322C2 11.4799 2.44772 11.0322 3 11.0322H21C21.5523 11.0322 22 11.4799 22 12.0322C22 12.5845 21.5523 13.0322 21 13.0322H3C2.44772 13.0322 2 12.5845 2 12.0322Z"
-                fill="currentColor"
-              />
-              <path
-                d="M3 17.0645C2.44772 17.0645 2 17.5122 2 18.0645C2 18.6167 2.44772 19.0645 3 19.0645H21C21.5523 19.0645 22 18.6167 22 18.0645C22 17.5122 21.5523 17.0645 21 17.0645H3Z"
-                fill="currentColor"
-              />
-            </svg>
+    <div class="main-wrapper">
+      <div class="side-block left"></div>
+      <div id="container">
+        <div class="header-container grid-background-corners">
+          <div class="sidebar">
+            <div class="sidebar-content">
+              <div class="sidebar-header">
+                <h2>Conversations</h2>
+                <button class="close-sidebar">
+                  <img src="assets/close.svg" alt="Menu" />
+                </button>
+              </div>
+              <button id="newConversationBtn">+ New Chat</button>
+              <div class="conversations-list">
+                <!-- Will be populated by JS -->
+              </div>
+            </div>
+          </div>
+          <div class="header-left">
+            <button class="burger-button">
+              <img src="assets/menu.svg" alt="Menu" />
+            </button>
+          </div>
+
+          <object
+            id="logoObject"
+            style="height: 100%"
+            data="mds-ai-2.svg"
+            type="image/svg+xml"
+          ></object>
+
+          <div class="header-right">
+            <button id="deleteBtn">Effacer l'historique</button>
+          </div>
+        </div>
+
+        <div id="messages-container">
+          <div class="empty-state-card">
+            <div class="card-border-top"></div>
+            <div class="card-content">
+              <h2>Bienvenue sur MDS AI</h2>
+              <p>Posez votre question pour commencer la conversation</p>
+            </div>
+            <div class="card-border-bottom"></div>
+          </div>
+          <div class="messages-sub-container"></div>
+        </div>
+        <div id="input-container">
+          <textarea
+            type="text"
+            id="user-input"
+            placeholder="Entrez votre message"
+          ></textarea>
+          <button id="send-message-btn" disabled>
+            <span class="button-text">Envoyer</span>
+            <span class="loader"></span>
           </button>
         </div>
-
-        <object
-          id="logoObject"
-          style="height: 100%"
-          data="mds-ai-2.svg"
-          type="image/svg+xml"
-        ></object>
-
-        <div class="header-right">
-          <button id="deleteBtn">Effacer l'historique</button>
-        </div>
       </div>
-
-      <div id="messages-container">
-        <div class="empty-state-card">
-          <div class="card-border-top"></div>
-          <div class="card-content">
-            <h2>Bienvenue sur MDS AI</h2>
-            <p>Posez votre question pour commencer la conversation</p>
-          </div>
-          <div class="card-border-bottom"></div>
-        </div>
-        <div class="messages-sub-container"></div>
-      </div>
-      <div id="input-container">
-        <textarea
-          type="text"
-          id="user-input"
-          placeholder="Entrez votre message"
-        ></textarea>
-        <button id="send-message-btn" disabled>
-          <span class="button-text">Envoyer</span>
-          <span class="loader"></span>
-        </button>
-      </div>
+      <div class="side-block right"></div>
     </div>
     <div class="line-container bottom">
       <div class="small-block"></div>
       <div class="large-block"></div>
       <div class="small-block"></div>
     </div>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/conversations.js"></script>
+    <script src="scripts/messages.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/main.js"></script>
   </body>
 </html>

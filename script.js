@@ -11,6 +11,8 @@ const localStorageHandler = (key, value) => {
   return value ? localStorage.setItem(key, value) : localStorage.getItem(key);
 };
 
+console.log(localStorage);
+
 const displayMessage = (message, isBot = false) => {
   const container = document.createElement("div");
   container.className = `message-row ${isBot ? "bot-side" : "user-side"}`;
@@ -26,38 +28,11 @@ const messagesInstance = {
   messages: [],
   updateEmptyState: () => {
     if (messagesInstance.messages.length === 0) {
+      emptyStateCard.classList.remove("hiding");
       emptyStateCard.classList.add("visible");
-      animate(
-        emptyStateCard,
-        {
-          opacity: [0, 1],
-          transform: [
-            "translate(-50%, calc(-50% + 20px)) scale(0.9)",
-            "translate(-50%, -50%) scale(1)",
-          ],
-        },
-        {
-          duration: 0.4,
-          easing: [0.22, 1.28, 0.38, 1],
-        },
-      );
     } else {
-      animate(
-        emptyStateCard,
-        {
-          opacity: [1, 0],
-          transform: [
-            "translate(-50%, -50%) scale(1)",
-            "translate(-50%, calc(-50% - 20px)) scale(0.9)",
-          ],
-        },
-        {
-          duration: 0.3,
-          easing: "ease-in",
-        },
-      ).finished.then(() => {
-        emptyStateCard.classList.remove("visible");
-      });
+      emptyStateCard.classList.add("hiding");
+      emptyStateCard.classList.remove("visible");
     }
   },
   // messages: [{ role: "user", parts: [{ text: "Hello, how are you?" }] }],
