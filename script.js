@@ -74,7 +74,7 @@ if (savedMessages) {
   messagesInstance.initMessages(parsedMessages);
 }
 
-const GEMINI_API_KEY = "AIzaSyA_6kb_udqs0c3ADNbHcVnaQj4y6STy0G8";
+const GEMINI_API_KEY = "";
 
 function callGeminiAPI() {
   sendButton.classList.add("loading");
