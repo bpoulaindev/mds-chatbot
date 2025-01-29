@@ -64,14 +64,6 @@ body {
   font-size: var(--font-size-base);
   position: relative;
   background-color: var(--color-background);
-}
-
-* {
-  box-sizing: border-box;
-  font-family: var(--font-family);
-}
-
-body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +73,12 @@ body {
   overflow: hidden;
   overscroll-behavior: none;
   touch-action: none;
-  margin: 0;
+  margin: 0!important;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--font-family);
 }
 
 .main-wrapper {
@@ -150,7 +147,7 @@ body {
   max-width: 60%;
 }
 
-.message {
+.message, md-block.message {
   font-family: var(--font-family);
   padding: var(--spacing-sm) var(--spacing-md);
   border: var(--border-primary);
@@ -159,6 +156,24 @@ body {
   width: fit-content;
   max-width: 60%;
   position: relative;
+  overflow-x: hidden;
+}
+
+md-block.message pre {
+  background: #e8e8e8;
+  color: var(--color-primary-darker);
+  padding: var(--spacing-sm);
+  border: var(--border-width) solid var(--color-primary-light);
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+}
+
+md-block.message code {
+  font-family: var(--font-family);
+  background: #e8e8e8;
+  color: var(--color-primary-darker);
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 .bot-side .message::before {
@@ -280,6 +295,62 @@ textarea:focus-visible {
 
 .header-right {
   justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+#keyBtn {
+  position: relative;
+  cursor: pointer;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm);
+  border: none;
+  width: fit-content;
+  height: fit-content;
+}
+
+#keyBtn:hover {
+  background: var(--color-primary);
+  color: var(--color-background)
+}
+
+#keyBtn.flash {
+  animation: flashButton 1s ease;
+}
+
+#keyBtn[data-tooltip]::after {
+  z-index: 10;
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-primary);
+  color: var(--color-background);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeInOut 3s ease;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+@keyframes flashButton {
+  0%, 100% {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+  50% {
+    background: var(--color-primary);
+    color: var(--color-background);
+  }
 }
 
 #deleteBtn {

@@ -6,7 +6,7 @@
   bottom: 0;
   pointer-events: none;
   z-index: var(--z-overlay);
-  background-image: url("../noise-big.png");
+  background-image: url("../assets/noise-big.png");
   background-size: 180px;
   background-repeat: repeat;
   opacity: 0.1;

@@ -47,13 +47,22 @@ window.messagesInstance = {
     this.updateEmptyState();
   },
 
-  displayMessage: function (message, isBot, isNew = false) {
+  displayMessage: function(message, isBot) {
     const container = document.createElement("div");
     container.className = `message-row ${isBot ? "bot-side" : "user-side"}`;
-    const paragraph = document.createElement("p");
-    paragraph.className = "message";
-    paragraph.innerHTML = message;
-    container.appendChild(paragraph);
+    
+    if (isBot) {
+      const mdBlock = document.createElement("md-block");
+      mdBlock.className = "message";
+      mdBlock.textContent = message;
+      container.appendChild(mdBlock);
+    } else {
+      const paragraph = document.createElement("p");
+      paragraph.className = "message";
+      paragraph.textContent = message;
+      container.appendChild(paragraph);
+    }
+    
     document.querySelector(".messages-sub-container").appendChild(container);
   },
 

@@ -8,6 +8,8 @@
     <script src="script2.js" defer></script>
     <script src="scripts/sidebar.js" defer></script> -->
     <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
     <link rel="stylesheet" href="stylesheets/main.css" />
     <link rel="stylesheet" href="stylesheets/experimental.css" />
     <link rel="stylesheet" href="stylesheets/card.css" />
@@ -53,11 +55,12 @@
           <object
             id="logoObject"
             style="height: 100%"
-            data="mds-ai-2.svg"
+            data="assets/mds-ai-2.svg"
             type="image/svg+xml"
           ></object>
 
           <div class="header-right">
+            <button id="keyBtn">Key</button>
             <button id="deleteBtn">Effacer l'historique</button>
           </div>
         </div>
@@ -79,7 +82,7 @@
             id="user-input"
             placeholder="Entrez votre message"
           ></textarea>
-          <button id="send-message-btn" disabled>
+          <button id="send-message-btn">
             <span class="button-text">Envoyer</span>
             <span class="loader"></span>
           </button>

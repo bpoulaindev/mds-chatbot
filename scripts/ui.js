@@ -3,15 +3,42 @@ window.uiHandler = {
     const sendButton = document.getElementById("send-message-btn");
     const deleteButton = document.getElementById("deleteBtn");
     const userInput = document.getElementById("user-input");
+    const keyButton = document.getElementById("keyBtn");
+
+    const checkCanSend = () => {
+      const hasKey = window.localStorageHandler("geminiKey");
+      const hasText = userInput.value.length > 0;
+      sendButton.disabled = !hasKey || !hasText;
+    };
 
     sendButton.addEventListener("click", () => {
+      if (!window.localStorageHandler("geminiKey")) {
+        keyButton.classList.add("flash");
+        keyButton.setAttribute("data-tooltip", "Please set your API key first");
+        setTimeout(() => {
+          keyButton.classList.remove("flash");
+          keyButton.removeAttribute("data-tooltip");
+        }, 3000);
+        return;
+      }
       window.uiHandler.sendMessageFromUser();
     });
 
     userInput.addEventListener("keyup", (event) => {
-      sendButton.disabled = userInput.value.length === 0;
       if (event.key === "Enter") {
-        window.uiHandler.sendMessageFromUser();
+        checkCanSend();
+        !sendButton.disabled ?
+        window.uiHandler.sendMessageFromUser() :
+        event.preventDefault()
+      }
+    });
+
+    keyButton.addEventListener("click", () => {
+      const currentKey = window.localStorageHandler("geminiKey") || "";
+      const newKey = prompt("Enter your Gemini API key:", currentKey);
+      if (newKey && newKey.trim()) {
+        window.localStorageHandler("geminiKey", newKey.trim());
+        checkCanSend();
       }
     });
 
@@ -129,7 +156,12 @@ window.uiHandler = {
   },
   
   callGeminiAPI: function () {
-    const GEMINI_API_KEY = "AIzaSyA_6kb_udqs0c3ADNbHcVnaQj4y6STy0G8";
+    const GEMINI_API_KEY = window.localStorageHandler("geminiKey");
+    if (!GEMINI_API_KEY) {
+      alert("Please set your Gemini API key first");
+      return;
+    }
+
     const sendButton = document.getElementById("send-message-btn");
     sendButton.classList.add("loading");
 
