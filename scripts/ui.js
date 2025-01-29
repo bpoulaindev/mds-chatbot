@@ -5,11 +5,20 @@ window.uiHandler = {
     const userInput = document.getElementById("user-input");
     const keyButton = document.getElementById("keyBtn");
 
+    const updateBodyHeight = () => {
+      document.body.style.height = `${window.innerHeight}px`;
+      document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+    };
+
     const checkCanSend = () => {
       const hasKey = window.localStorageHandler("geminiKey");
       const hasText = userInput.value.length > 0;
       sendButton.disabled = !hasKey || !hasText;
     };
+
+    window.addEventListener('resize', updateBodyHeight);
+    window.addEventListener('orientationchange', updateBodyHeight);
+    updateBodyHeight();
 
     sendButton.addEventListener("click", () => {
       if (!window.localStorageHandler("geminiKey")) {
@@ -179,6 +188,7 @@ window.uiHandler = {
         console.log("answer from gemini:", textContent);
         window.messagesInstance.addMessage(textContent, true);
         sendButton.classList.remove("loading");
+        sendButton.disabled = false;
       })
       .catch((error) => console.error(error));
   },
