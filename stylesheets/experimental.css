@@ -1,0 +1,112 @@
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  background-image: url("../assets/noise-big.png");
+  background-size: 180px;
+  background-repeat: repeat;
+  opacity: 0.1;
+}
+
+.line-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: var(--line-container-height);
+  min-height: var(--line-container-height);
+}
+
+.line-container.top {
+  border-bottom: var(--border-primary);
+}
+
+.line-container.bottom {
+  border-top: var(--border-primary);
+}
+
+.line-container::before,
+.line-container::after {
+  content: "";
+  position: absolute;
+  width: var(--diamond-size);
+  height: var(--diamond-size);
+  background-color: var(--color-background);
+  border: var(--border-primary);
+  transform: rotate(45deg);
+  z-index: var(--z-overlay);
+}
+
+/* For the top line-container */
+.line-container.top::before,
+.line-container.top::after {
+  bottom: var(--diamond-y-offset);
+  left: var(--diamond-x-offset);
+}
+
+.line-container.top::after {
+  left: auto;
+  right: var(--diamond-x-offset);
+}
+
+/* For the bottom line-container */
+.line-container.bottom::before,
+.line-container.bottom::after {
+  top: var(--diamond-y-offset);
+  left: var(--diamond-x-offset);
+}
+
+.line-container.bottom::after {
+  left: auto;
+  right: var(--diamond-x-offset);
+}
+
+.small-block {
+  width: var(--spacing-xl);
+  min-width: var(--spacing-xl);
+  height: 100%;
+}
+
+.large-block {
+  height: 100%;
+  width: 100%;
+  border-left: var(--border-primary);
+  border-right: var(--border-primary);
+}
+
+/* For the grid backgrounds, we need to encode the color variable in the SVG.
+   Since CSS variables can't be used directly in data URLs, we'll keep the original hex color */
+
+.grid-background-1 {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20' stroke='%230551cf' fill='none' stroke-width='0.8' opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+}
+
+.grid-background-2 {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20 M 20 20 L 0 20' stroke='%230551cf' fill='none' stroke-width='0.5' opacity='0.25'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+}
+
+.grid-background-3 {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20' stroke='%230551cf' fill='none' stroke-width='0.5' opacity='0.3' stroke-dasharray='2,2'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+}
+
+.grid-background-4 {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 0 L 0 0 0 40' stroke='%230551cf' fill='none' stroke-width='1' opacity='0.25'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+
+.grid-background-5 {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20' stroke='%230551cf' fill='none' stroke-width='0.5' opacity='0.3'/%3E%3Cpath d='M 19 1 L 1 1 1 19' stroke='%230551cf' fill='none' stroke-width='0.3' opacity='0.15'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+}
+
+.grid-background-corners {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20 M 20 20 L 0 20' stroke='%230551cf' fill='none' stroke-width='0.8' opacity='0.2'/%3E%3Cpath d='M 3 0 L 0 0 0 3 M 0 17 L 0 20 3 20 M 17 20 L 20 20 20 17 M 20 3 L 20 0 17 0' stroke='%230551cf' fill='none' stroke-width='1.2' opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+}

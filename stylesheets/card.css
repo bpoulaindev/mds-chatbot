@@ -1,0 +1,92 @@
+.empty-state-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 20px)) scale(0.9);
+  width: min(80%, 500px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  max-width: calc(100% - var(--spacing-2xl));
+  margin: auto;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    transform 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    visibility 0s linear 0.4s; /* delay visibility change until fade out is complete */
+}
+
+.empty-state-card.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: all;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    transform 0.4s cubic-bezier(0.22, 1.28, 0.38, 1),
+    visibility 0s linear; /* no delay when becoming visible */
+}
+
+/* Optional: add exit animation */
+.empty-state-card.hiding {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% - 20px)) scale(0.9);
+  transition:
+    opacity 0.3s ease-in,
+    transform 0.3s ease-in,
+    visibility 0s linear 0.3s;
+}
+
+.card-border-top,
+.card-border-bottom {
+  height: 1px;
+  background-color: var(--color-primary);
+  position: relative;
+}
+
+.card-border-top::before,
+.card-border-top::after,
+.card-border-bottom::before,
+.card-border-bottom::after {
+  content: "";
+  position: absolute;
+  width: var(--diamond-size);
+  height: var(--diamond-size);
+  background-color: var(--color-background);
+  border: var(--border-primary);
+  transform: rotate(45deg);
+}
+
+.card-border-top::before {
+  left: calc(var(--diamond-size) * -0.5);
+  bottom: calc(var(--diamond-size) * -0.5);
+}
+
+.card-border-top::after {
+  right: calc(var(--diamond-size) * -0.5);
+  bottom: calc(var(--diamond-size) * -0.5);
+}
+
+.card-border-bottom::before {
+  left: calc(var(--diamond-size) * -0.5);
+  top: calc(var(--diamond-size) * -0.5);
+}
+
+.card-border-bottom::after {
+  right: calc(var(--diamond-size) * -0.5);
+  top: calc(var(--diamond-size) * -0.5);
+}
+
+.card-content {
+  padding: var(--spacing-3xl); /* 48px instead of 2rem */
+  text-align: center;
+}
+
+.card-content h2 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--color-primary);
+}
+
+.card-content p {
+  margin: 0;
+  color: var(--color-gray-500);
+}

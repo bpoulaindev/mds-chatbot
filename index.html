@@ -1,23 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet Chatbot</title>
-    <script src="script.js" defer></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="container">
-        <h1>Projet Chatbot</h1>
-        
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MDS AI</title>
+    <!-- <script src="script.js" defer></script>
+    <script src="script2.js" defer></script>
+    <script src="scripts/sidebar.js" defer></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+    <link rel="stylesheet" href="stylesheets/main.css" />
+    <link rel="stylesheet" href="stylesheets/experimental.css" />
+    <link rel="stylesheet" href="stylesheets/card.css" />
+    <link rel="stylesheet" href="stylesheets/sidebar.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="noise-overlay"></div>
+    <div class="line-container top">
+      <div class="small-block"></div>
+      <div class="large-block"></div>
+      <div class="small-block"></div>
+    </div>
+    <div class="main-wrapper">
+      <div class="side-block left"></div>
+      <div id="container">
+        <div class="header-container grid-background-corners">
+          <div class="sidebar">
+            <div class="sidebar-content">
+              <div class="sidebar-header">
+                <h2>Conversations</h2>
+                <button class="close-sidebar">
+                  <img src="assets/close.svg" alt="Menu" />
+                </button>
+              </div>
+              <button id="newConversationBtn">+ New Chat</button>
+              <div class="conversations-list">
+                <!-- Will be populated by JS -->
+              </div>
+            </div>
+          </div>
+          <div class="header-left">
+            <button class="burger-button">
+              <img src="assets/menu.svg" alt="Menu" />
+            </button>
+          </div>
+
+          <object
+            id="logoObject"
+            style="height: 100%"
+            data="assets/mds-ai-2.svg"
+            type="image/svg+xml"
+          ></object>
+
+          <div class="header-right">
+            <button id="keyBtn">Key</button>
+            <button id="deleteBtn">
+              <img src="assets/trash.svg" alt="Delete" width="16" height="16">
+            </button>
+          </div>
+        </div>
+
         <div id="messages-container">
-            
+          <div class="empty-state-card">
+            <div class="card-border-top"></div>
+            <div class="card-content">
+              <h2>Bienvenue sur MDS AI</h2>
+              <p>Posez votre question pour commencer la conversation</p>
+            </div>
+            <div class="card-border-bottom"></div>
+          </div>
+          <div class="messages-sub-container"></div>
         </div>
         <div id="input-container">
-            <textarea type="text" id="user-input" placeholder="Entrez votre message"></textarea>
-            <button id="send-message-btn">Envoyer</button>
+          <textarea
+            type="text"
+            id="user-input"
+            placeholder="Entrez votre message"
+          ></textarea>
+          <button id="send-message-btn">
+            <span class="button-text">Envoyer</span>
+            <span class="loader"></span>
+          </button>
         </div>
+      </div>
+      <div class="side-block right"></div>
     </div>
-</body>
+    <div class="line-container bottom">
+      <div class="small-block"></div>
+      <div class="large-block"></div>
+      <div class="small-block"></div>
+    </div>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/conversations.js"></script>
+    <script src="scripts/messages.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
 </html>
